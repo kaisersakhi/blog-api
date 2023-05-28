@@ -1,9 +1,10 @@
 class AuthorsController < ApplicationController
 
-  before_action :authenticate_author, only: %i[show logout]
+  before_action :authenticate_author, only: %i[logout]
 
   def show
-    render json: { author: current_user.as_json(except: %i[password_digest auth_token]) }
+    author = Author.find_by_id(params[:id])
+    render json: { author: author.as_json(except: %i[password_digest auth_token created_at updated_at]) }
   end
 
   def create

@@ -1,0 +1,114 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/authors/{id}":
+    parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: integer
+    get:
+      summary: show the current author
+      responses:
+        '200':
+          description: Successful
+          content:
+            application/json:
+              examples:
+                example_0:
+                  value:
+                    author:
+                      id: 1
+                      name: John Doe
+                      email: johndoe@home.com
+  "/articles":
+    get:
+      summary: show all articles present
+      responses:
+        '200':
+          description: Successful
+          content:
+            application/json:
+              examples:
+                example_0:
+                  value:
+                  - id: 1
+                    title: Top Movies of all time
+                    body: Go and search yourself :)
+                    author: Kaiser Sakhi
+                    created_at: 12-12-2020
+  "/register":
+    post:
+      summary: register a author
+      parameters: []
+      responses:
+        '201':
+          description: Author registered successfully
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: John Doe
+                email:
+                  type: string
+                  example: johndoe@example.com
+                password:
+                  type: string
+                  example: password
+              required:
+              - email
+              - password
+              - name
+  "/login":
+    post:
+      summary: login an author and return auth token
+      parameters: []
+      responses:
+        '200':
+          description: Logged in successfully
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: johndoe@example.com
+                password:
+                  type: string
+                  example: password
+              required:
+              - email
+              - password
+  "/logout":
+    delete:
+      summary: logouts a author and invalidates the token
+      parameters: []
+      responses:
+        '200':
+          description: Logged out successfully
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                token:
+                  type: string
+                  example: paste-token-here
+              required:
+              - token
+servers:
+- url: http://127.0.0.1:5050/
+  variables:
+    defaultHost:
+      default: localhost:5050

@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  mount Rswag::Ui::Engine => '/'
+  mount Rswag::Api::Engine => '/swagger'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
@@ -10,5 +12,5 @@ Rails.application.routes.draw do
 
   post "/register", to: "authors#create"
   post "/login", to: "authors#login"
-  post "/logout", to: "authors#logout"
+  delete "/logout", to: "authors#logout"
 end
